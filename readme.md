@@ -433,3 +433,375 @@ int main() {
     return 0;
 }
 ```
+
+# Advanced C Programming Concepts and Solutions
+
+## Table of Contents
+
+1. [Control Flow Statements](#control-flow)
+2. [Loops](#loops)
+3. [Functions](#functions)
+4. [File I/O](#file-io)
+5. [Command Line Arguments](#command-line)
+6. [Lab Solutions](#lab-solutions)
+
+## Control Flow
+
+### If Statement
+
+```c
+if (condition) {
+    // code block
+} else if (another_condition) {
+    // code block
+} else {
+    // code block
+}
+
+// Example:
+int a = 100;
+if (a < 20) {
+    printf("a is less than 20\n");
+} else {
+    printf("a is not less than 20\n");
+}
+```
+
+## Loops
+
+### While Loop
+
+```c
+// Basic while loop
+int a = 10;
+while (a < 20) {
+    printf("value of a: %d\n", a);
+    a++;
+}
+```
+
+### For Loop
+
+```c
+// Basic for loop
+for(int a = 10; a < 20; a++) {
+    printf("value of a: %d\n", a);
+}
+```
+
+### Nested Loop Example
+
+```c
+// Example: Finding prime numbers
+for(i=2; i<100; i++) {
+    for(j=2; j <= (i/j); j++) {
+        if(!(i%j)) break; // if factor found, not prime
+    }
+    if(j > (i/j)) printf("%d is prime\n", i);
+}
+```
+
+## Functions
+
+### Function Definition
+
+```c
+// Function declaration
+return_type function_name(parameters);
+
+// Example function
+int max(int num1, int num2) {
+    if (num1 > num2)
+        return num1;
+    else
+        return num2;
+}
+```
+
+### Call by Value vs Call by Reference
+
+#### Call by Value
+
+```c
+void swap(int x, int y) {
+    int temp;
+    temp = x;  // value is copied
+    x = y;
+    y = temp;
+}
+```
+
+#### Call by Reference
+
+```c
+void swap(int *x, int *y) {
+    int temp;
+    temp = *x;  // value at address is changed
+    *x = *y;
+    *y = temp;
+}
+```
+
+## File I/O
+
+### Basic File Operations
+
+```c
+// Opening a file
+FILE *fp;
+fp = fopen("test.txt", "w+");  // w+ for read and write
+
+// Writing to file
+fprintf(fp, "This is test content\n");
+fputs("More content\n", fp);
+
+// Reading from file
+char buffer[100];
+fscanf(fp, "%s", buffer);
+fgets(buffer, 255, (FILE*)fp);
+
+// Closing file
+fclose(fp);
+```
+
+### File Access Modes
+
+- `"r"` - Read only
+- `"w"` - Write (file truncated if exists)
+- `"a"` - Append
+- `"r+"` - Read and write from beginning
+- `"w+"` - Read and write (truncated if exists)
+- `"a+"` - Read and append (writing at end)
+
+## Command Line Arguments
+
+```c
+int main(int argc, char *argv[]) {
+    // argc - number of arguments
+    // argv[] - array of arguments
+    // argv[0] - program name
+    // argv[1] - first argument
+
+    if(argc == 2) {
+        printf("The argument supplied is %s\n", argv[1]);
+    }
+    return 0;
+}
+```
+
+## Lab Solutions
+
+### 1. Vowel or Consonant Checker
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char ch;
+    printf("Enter a character: ");
+    scanf("%c", &ch);
+
+    ch = tolower(ch);
+    if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+        printf("%c is a vowel\n", ch);
+    else
+        printf("%c is a consonant\n", ch);
+
+    return 0;
+}
+```
+
+### 2. Triangle Angle Validator
+
+```c
+#include <stdio.h>
+
+int main() {
+    int angle1, angle2, angle3;
+    printf("Enter three angles: ");
+    scanf("%d %d %d", &angle1, &angle2, &angle3);
+
+    if(angle1 + angle2 + angle3 == 180 && angle1 > 0 && angle2 > 0 && angle3 > 0)
+        printf("Triangle is valid\n");
+    else
+        printf("Triangle is not valid\n");
+
+    return 0;
+}
+```
+
+### 3. Sum of Even Numbers
+
+```c
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+
+    for(int i = 2; i <= n; i += 2) {
+        sum += i;
+    }
+
+    printf("Sum of even numbers from 1 to %d is %d\n", n, sum);
+    return 0;
+}
+```
+
+### 4. Array Reversal
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[100], n;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Reversing array
+    for(int i = 0; i < n/2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[n-1-i];
+        arr[n-1-i] = temp;
+    }
+
+    printf("Reversed array: ");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+```
+
+### 5. Circle Calculations
+
+```c
+#include <stdio.h>
+#define PI 3.14159
+
+double getDiameter(double radius) {
+    return 2 * radius;
+}
+
+double getCircumference(double radius) {
+    return 2 * PI * radius;
+}
+
+double getArea(double radius) {
+    return PI * radius * radius;
+}
+
+int main() {
+    double radius;
+    printf("Enter radius: ");
+    scanf("%lf", &radius);
+
+    printf("Diameter: %.2f\n", getDiameter(radius));
+    printf("Circumference: %.2f\n", getCircumference(radius));
+    printf("Area: %.2f\n", getArea(radius));
+
+    return 0;
+}
+```
+
+### 6. Array Swap Using References
+
+```c
+#include <stdio.h>
+
+void swap(int *x, int *y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main() {
+    int arr[100], n;
+    printf("Enter array size: ");
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    for(int i = 0; i < n-1; i += 2) {
+        swap(&arr[i], &arr[i+1]);
+    }
+
+    printf("After swapping: ");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+```
+
+### 7. File Character Filter
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    FILE *fp;
+    char ch;
+
+    fp = fopen("input.txt", "r");
+    if(fp == NULL) {
+        printf("Error opening file\n");
+        return 1;
+    }
+
+    while((ch = fgetc(fp)) != EOF) {
+        if(isalpha(ch)) {
+            printf("%c", ch);
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+```
+
+### 8. Command Line Sorting
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+int main(int argc, char *argv[]) {
+    if(argc < 2) {
+        printf("Usage: %s number1 number2 ...\n", argv[0]);
+        return 1;
+    }
+
+    int numbers[100];
+    int count = argc - 1;
+
+    for(int i = 0; i < count; i++) {
+        numbers[i] = atoi(argv[i + 1]);
+    }
+
+    qsort(numbers, count, sizeof(int), compare);
+
+    printf("Sorted numbers: ");
+    for(int i = 0; i < count; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
